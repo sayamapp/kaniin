@@ -1,11 +1,14 @@
 mod consts;
 mod title;
 mod kaniin;
+mod player;
+mod background;
 
 use bevy::prelude::*;
 use crate::consts::*;
 use crate::title::TitlePlugin;
 use crate::kaniin::KaniinPlugin;
+use crate::player::PlayerPlugin;
 use bevy::input::system::exit_on_esc_system;
 
 fn main() {
@@ -16,6 +19,7 @@ fn main() {
             height: 600.0,
             ..Default::default()
         })
+        .add_resource(ClearColor(Color::rgb(0.04, 0.04, 0.04)))
         .add_resource(State::new(AppState::Title))
         .add_stage_after(
             stage::UPDATE,
@@ -29,6 +33,7 @@ fn main() {
         .add_system(exit_on_esc_system.system())
 
         .add_plugin(TitlePlugin)
+        .add_plugin(PlayerPlugin)
         .run();
 }
 
