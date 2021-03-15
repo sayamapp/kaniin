@@ -2,6 +2,7 @@ use bevy::prelude::*;
 use crate::consts::*;
 
 pub struct PlayerPlugin;
+
 impl Plugin for PlayerPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app
@@ -20,6 +21,7 @@ enum Direction {
 pub struct Player {
     direction: Direction,
 }
+
 fn setup_player(
     commands: &mut Commands,
     asset_server: Res<AssetServer>,
@@ -36,32 +38,35 @@ fn setup_player(
     commands
         .spawn(SpriteSheetBundle {
             texture_atlas: player_texture_atlas_handle,
+            transform: Transform {
+                translation: Vec3::new(0., -200., 0.),
+                scale: Vec3::new(4., 4., 1.),
+                ..Default::default()
+            },
             ..Default::default()
         })
         .with(Timer::from_seconds(0.05, true))
-        .with(Transform{
-            translation: Vec3::new(0., -200., 0.),
-            scale: Vec3::new(4., 4., 1.),
-            ..Default::default()
-        })
+        // .with(Transform {
+        //     translation: Vec3::new(0., -200., 0.),
+        //     scale: Vec3::new(4., 4., 1.),
+        //     ..Default::default()
+        // })
         .with(Timer::from_seconds(0.05, true))
-        .with(Player {direction: Direction::None });
+        .with(Player { direction: Direction::None });
 }
 
 fn player_move(
     input: Res<Input<KeyCode>>,
     mut query: Query<(&mut Transform, &mut Player)>,
 ) {
-    for ( mut transform , mut player) in query.iter_mut() {
+    for (mut transform, mut player) in query.iter_mut() {
         if input.pressed(KeyCode::Left) {
             transform.translation.x -= 5.0;
             player.direction = Direction::Left;
-        }
-        else if input.pressed(KeyCode::Right) {
-            transform.translation.x  += 5.0;
+        } else if input.pressed(KeyCode::Right) {
+            transform.translation.x += 5.0;
             player.direction = Direction::Right;
-        }
-        else {
+        } else {
             player.direction = Direction::None;
         }
     }

@@ -27,11 +27,11 @@ fn setup(
     commands
         .spawn(SpriteBundle {
             material: materials.add(handle.into()),
-            ..Default::default()
-        })
-        .with(Transform {
-            translation: Vec3::new(0., -500., 0.),
-            scale: Vec3::new(4., 4., 1.),
+            transform: Transform {
+                translation: Vec3::new(0., -900., 0.),
+                scale: Vec3::new(4., 4., 1.),
+                ..Default::default()
+            },
             ..Default::default()
         })
         .with(Bubble { is_active: false });
@@ -52,7 +52,7 @@ fn spawn(
                 }
             }
             if bubble.is_active {
-                transform.translation.y += 10.0;
+                transform.translation.y += 20.0;
             }
 
             if transform.translation.y > 400.0 {
