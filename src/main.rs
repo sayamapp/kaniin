@@ -3,12 +3,15 @@ mod title;
 mod kaniin;
 mod player;
 mod background;
+mod bubble;
 
 use bevy::prelude::*;
 use crate::consts::*;
 use crate::title::TitlePlugin;
 use crate::kaniin::KaniinPlugin;
 use crate::player::PlayerPlugin;
+use crate::background::BackgroundPlugin;
+use crate::bubble::BubblePlugin;
 use bevy::input::system::exit_on_esc_system;
 
 fn main() {
@@ -34,6 +37,8 @@ fn main() {
 
         .add_plugin(TitlePlugin)
         .add_plugin(PlayerPlugin)
+        .add_plugin(BackgroundPlugin)
+        .add_plugin(BubblePlugin)
         .run();
 }
 

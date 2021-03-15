@@ -17,7 +17,7 @@ enum Direction {
     Right,
 }
 
-struct Player {
+pub struct Player {
     direction: Direction,
 }
 fn setup_player(

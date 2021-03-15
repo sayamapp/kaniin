@@ -11,9 +11,19 @@ impl Plugin for BackgroundPlugin {
 
 fn setup(
     commands: &mut Commands,
-
+    asset_server: Res<AssetServer>,
+    mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
-    for i in -10..=10 {
+    let bg_handle = asset_server.load("textures/floor.png");
 
-    }
+    commands
+        .spawn(SpriteBundle {
+            material: materials.add(bg_handle.into()),
+            ..Default::default()
+        })
+        .with(Transform {
+            translation: Vec3::new(0., -265., 0.),
+            scale: Vec3::new(100., 4., 1.),
+            ..Default::default()
+        });
 }
