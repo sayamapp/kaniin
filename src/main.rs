@@ -4,6 +4,7 @@ mod kaniin;
 mod player;
 mod background;
 mod bubble;
+mod rock;
 
 use bevy::prelude::*;
 use crate::consts::*;
@@ -12,6 +13,7 @@ use crate::kaniin::KaniinPlugin;
 use crate::player::PlayerPlugin;
 use crate::background::BackgroundPlugin;
 use crate::bubble::BubblePlugin;
+use crate::rock::RockPlugin;
 use bevy::input::system::exit_on_esc_system;
 
 fn main() {
@@ -39,6 +41,7 @@ fn main() {
         .add_plugin(PlayerPlugin)
         .add_plugin(BackgroundPlugin)
         .add_plugin(BubblePlugin)
+        .add_plugin(RockPlugin)
         .run();
 }
 
