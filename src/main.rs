@@ -5,6 +5,7 @@ mod player;
 mod background;
 mod bubble;
 mod rock;
+mod collision;
 
 use bevy::prelude::*;
 use crate::consts::*;
@@ -14,7 +15,9 @@ use crate::player::PlayerPlugin;
 use crate::background::BackgroundPlugin;
 use crate::bubble::BubblePlugin;
 use crate::rock::RockPlugin;
+use crate::collision::CollisionPlugin;
 use bevy::input::system::exit_on_esc_system;
+
 
 fn main() {
     App::build()
@@ -42,6 +45,7 @@ fn main() {
         .add_plugin(BackgroundPlugin)
         .add_plugin(BubblePlugin)
         .add_plugin(RockPlugin)
+        .add_plugin(CollisionPlugin)
         .run();
 }
 

@@ -1,5 +1,5 @@
 [package]
-name = "bevy_template"
+name = "kanirock"
 version = "0.1.0"
 authors = ["sandbox0436 <sandbox0436@gmail.com>"]
 edition = "2018"
