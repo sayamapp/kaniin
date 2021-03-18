@@ -14,7 +14,7 @@ fn setup(
     asset_server: Res<AssetServer>,
     mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
-    let bg_handle = asset_server.load("textures/floor.png");
+    let bg_handle = asset_server.load(BACKGROUND_TEXTURE);
 
     commands
         .spawn(SpriteBundle {
@@ -22,8 +22,8 @@ fn setup(
             ..Default::default()
         })
         .with(Transform {
-            translation: Vec3::new(0., -265., 0.),
-            scale: Vec3::new(100., 4., 1.),
+            translation: Vec3::new(0., BACKGROUND_POSITION_Y, 0.),
+            scale: Vec3::new(100., SPRITE_SCALE, 1.),
             ..Default::default()
         });
 }

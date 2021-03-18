@@ -27,31 +27,25 @@ fn setup_player(
     asset_server: Res<AssetServer>,
     mut texture_atlases: ResMut<Assets<TextureAtlas>>,
 ) {
-    let player_texture_handle = asset_server.load("textures/kani.png");
+    let player_texture_handle = asset_server.load(PLAYER_TEXTURE);
     let player_texture_atlas = TextureAtlas::from_grid(
         player_texture_handle,
-        Vec2::new(16., 16.),
-        24,
-        1,
+        Vec2::splat(PLAYER_TA_SIZE),
+        PLAYER_TA_COLUMNS,
+        PLAYER_TA_ROWS,
     );
     let player_texture_atlas_handle = texture_atlases.add(player_texture_atlas);
     commands
         .spawn(SpriteSheetBundle {
             texture_atlas: player_texture_atlas_handle,
             transform: Transform {
-                translation: Vec3::new(0., -200., 0.),
-                scale: Vec3::new(4., 4., 1.),
+                translation: Vec3::new(0., PLAYER_POSITION_Y, 0.),
+                scale: Vec3::new(SPRITE_SCALE, SPRITE_SCALE, 1.),
                 ..Default::default()
             },
             ..Default::default()
         })
-        .with(Timer::from_seconds(0.05, true))
-        // .with(Transform {
-        //     translation: Vec3::new(0., -200., 0.),
-        //     scale: Vec3::new(4., 4., 1.),
-        //     ..Default::default()
-        // })
-        .with(Timer::from_seconds(0.05, true))
+        .with(Timer::from_seconds(PLAYER_ANIMATION_TIMER, true))
         .with(Player { direction: Direction::None });
 }
 
@@ -61,10 +55,10 @@ fn player_move(
 ) {
     for (mut transform, mut player) in query.iter_mut() {
         if input.pressed(KeyCode::Left) {
-            transform.translation.x -= 5.0;
+            transform.translation.x -= PLAYER_MOVE_SPEED;
             player.direction = Direction::Left;
         } else if input.pressed(KeyCode::Right) {
-            transform.translation.x += 5.0;
+            transform.translation.x += PLAYER_MOVE_SPEED;
             player.direction = Direction::Right;
         } else {
             player.direction = Direction::None;

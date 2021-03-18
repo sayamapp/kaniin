@@ -23,8 +23,8 @@ fn main() {
     App::build()
         .add_resource(WindowDescriptor {
             title: "kaniin!".to_string(),
-            width: 800.0,
-            height: 600.0,
+            width: WINDOW_WIDTH,
+            height: WINDOW_HEIGHT,
             ..Default::default()
         })
         .add_resource(ClearColor(Color::rgb(0.04, 0.04, 0.04)))

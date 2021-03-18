@@ -1,6 +1,8 @@
 use bevy::prelude::*;
 use crate::consts::*;
 use crate::player::Player;
+use crate::rock::Rock;
+use bevy::sprite::collide_aabb::collide;
 
 pub struct BubblePlugin;
 
@@ -13,7 +15,8 @@ impl Plugin for BubblePlugin {
     fn build(&self, app: &mut AppBuilder) {
         app
             .add_startup_system(setup.system())
-            .on_state_update(APP_STATE_STAGE, AppState::Game, spawn.system());
+            .on_state_update(APP_STATE_STAGE, AppState::Game, spawn.system())
+            .on_state_update(APP_STATE_STAGE, AppState::Game, collision.system());
     }
 }
 
@@ -52,12 +55,36 @@ fn spawn(
                 }
             }
             if bubble.is_active {
-                transform.translation.y += 20.0;
+                transform.translation.y += 10.0;
             }
 
             if transform.translation.y > 400.0 {
                 bubble.is_active = false;
                 transform.translation.y = -500.0;
+            }
+        }
+    }
+}
+
+fn collision(
+    commands: &mut Commands,
+    mut query_bubble: Query<(&mut Bubble, &mut Transform)>,
+    mut query_rock: Query<(Entity, &Transform), With<Rock>>,
+) {
+    for (mut bubble, mut bubble_transform) in query_bubble.iter_mut() {
+        for (rock_entity, rock_transform) in query_rock.iter_mut() {
+            let collision = collide(
+                bubble_transform.translation,
+                Vec2::new(64.0, 64.0),
+                rock_transform.translation,
+                Vec2::new(64.0, 64.0),
+            );
+            if let Some(_) = collision {
+                bubble.is_active = false;
+                bubble_transform.translation = Vec3::new(0., -900., 0.);
+                commands
+                    .despawn(rock_entity);
+                setup.system();
             }
         }
     }

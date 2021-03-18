@@ -13,17 +13,15 @@ impl Plugin for TitlePlugin {
     }
 }
 
-
 fn setup_title(
     commands: &mut Commands,
     asset_server: Res<AssetServer>,
     mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
-    // println!("TITLE");
-    let font_handle = asset_server.load("fonts/Square.ttf");
+    let font_handle = asset_server.load(FONT_PASS);
 
     commands
-        .spawn( NodeBundle {
+        .spawn(NodeBundle {
             style: Style {
                 size: Size::new(Val::Percent(100.), Val::Percent(100.)),
                 margin: Rect::all(Val::Auto),
@@ -39,16 +37,16 @@ fn setup_title(
                 style: Style {
                     position_type: PositionType::Absolute,
                     position: Rect {
-                        top: Val::Px(400.),
+                        top: Val::Px(TITLE_SUB_POS_Y),
                         ..Default::default()
                     },
                     ..Default::default()
                 },
                 text: Text {
-                    value: "Press SPACE Key".to_string(),
+                    value: TITLE_SUB_CONTENTS.to_string(),
                     font: font_handle.clone(),
                     style: TextStyle {
-                        font_size: 50.0,
+                        font_size: TITLE_SUB_SIZE,
                         color: Color::YELLOW,
                         ..Default::default()
                     },
@@ -62,16 +60,16 @@ fn setup_title(
                 style: Style {
                     position_type: PositionType::Absolute,
                     position: Rect {
-                        top: Val::Px(200.),
+                        top: Val::Px(TITLE_MAIN_POS_Y),
                         ..Default::default()
                     },
                     ..Default::default()
                 },
                 text: Text {
-                    value: "KANIIN!".to_string(),
+                    value: TITLE_MAIN_CONTENTS.to_string(),
                     font: font_handle.clone(),
                     style: TextStyle {
-                        font_size: 100.0,
+                        font_size: TITLE_MAIN_SIZE,
                         color: Color::YELLOW,
                         ..Default::default()
                     },
@@ -93,12 +91,10 @@ fn despawn_title(
 }
 
 fn title_input(
-    commands: &mut Commands,
     input: Res<Input<KeyCode>>,
     mut state: ResMut<State<AppState>>,
 ) {
     if input.pressed(KeyCode::Space) {
-        println!("SPACE");
         state
             .set_next(AppState::Game);
     }
