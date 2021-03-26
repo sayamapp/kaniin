@@ -7,7 +7,7 @@ pub struct RockPlugin;
 impl Plugin for RockPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app
-            .on_state_enter(APP_STATE_STAGE, AppState::Game, setup_debug.system())
+            // .on_state_enter(APP_STATE_STAGE, AppState::Game, setup_debug.system())
             .on_state_update(APP_STATE_STAGE, AppState::Game, rock_move.system());
     }
 }
@@ -18,30 +18,30 @@ pub enum RockSize {
 }
 
 pub struct Rock {
-    size: RockSize,
-    velocity_x: f32,
-    velocity_y: f32,
+    pub size: RockSize,
+    pub velocity_x: f32,
+    pub velocity_y: f32,
 }
 
-fn setup_debug(
-    commands: &mut Commands,
-    asset_server: Res<AssetServer>,
-    mut materials: ResMut<Assets<ColorMaterial>>,
-) {
-    let texture_handle = asset_server.load(ROCK_TEXTURE);
+// fn setup_debug(
+//     commands: &mut Commands,
+//     asset_server: Res<AssetServer>,
+//     mut materials: ResMut<Assets<ColorMaterial>>,
+// ) {
+//     let texture_handle = asset_server.load(ROCK_TEXTURE);
 
-    commands
-        .spawn(SpriteBundle {
-            material: materials.add(texture_handle.into()),
-            transform: Transform {
-                translation: Vec3::new(0.0, 200.0, 0.0),
-                scale: Vec3::new(4.0, 4.0, 1.0),
-                ..Default::default()
-            },
-            ..Default::default()
-        })
-        .with(Rock{ size: RockSize::Midium, velocity_x: 3.0, velocity_y: 1.0});
-}
+//     commands
+//         .spawn(SpriteBundle {
+//             material: materials.add(texture_handle.into()),
+//             transform: Transform {
+//                 translation: Vec3::new(0.0, 200.0, 0.0),
+//                 scale: Vec3::new(4.0, 4.0, 1.0),
+//                 ..Default::default()
+//             },
+//             ..Default::default()
+//         })
+//         .with(Rock{ size: RockSize::Midium, velocity_x: 3.0, velocity_y: 1.0});
+// }
 
 fn rock_move(
     mut query: Query<(&mut Transform, &mut Rock)>,

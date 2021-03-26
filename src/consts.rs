@@ -42,7 +42,8 @@ pub const PLAYER_ANIMATION_TIMER: f32 = 0.05;
 pub const PLAYER_MOVE_SPEED: f32 = 5.0;
 
 // rock settings
-pub const ROCK_GRAVITY: f32 = 1.0;
+pub const ROCK_GRAVITY: f32 = 0.1;
+pub const ROCK_SPAWN_POSITION_Y: f32 = 200.0;
 // settings for debug
 pub const DEBUG_ROCK_SIZE: f32 = 64.0;
 

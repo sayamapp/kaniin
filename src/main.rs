@@ -28,10 +28,12 @@ mod background;
 mod player;
 mod rock;
 mod ufo;
+mod rock_spawner;
 use crate::background::BackgroundPlugin;
 use crate::player::PlayerPlugin;
 use crate::rock::RockPlugin;
 use crate::ufo::UfoPlugin;
+use crate::rock_spawner::RockSpawnerPlugin;
 
 fn main() {
     App::build()
@@ -60,6 +62,7 @@ fn main() {
         .add_plugin(PlayerPlugin)
         .add_plugin(RockPlugin)
         .add_plugin(UfoPlugin)
+        .add_plugin(RockSpawnerPlugin)
 
         .run();
 }
