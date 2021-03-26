@@ -26,8 +26,10 @@ use crate::title::TitlePlugin;
 // 後で移動
 mod background;
 mod player;
+mod rock;
 use crate::background::BackgroundPlugin;
 use crate::player::PlayerPlugin;
+use crate::rock::RockPlugin;
 
 fn main() {
     App::build()
@@ -53,6 +55,7 @@ fn main() {
         .add_plugin(TitlePlugin)
         .add_plugin(BackgroundPlugin)
         .add_plugin(PlayerPlugin)
+        .add_plugin(RockPlugin)
 
         .run();
 }

@@ -15,6 +15,7 @@ pub const APP_STATE_STAGE: &str = "app_state_stage";
 pub const FONT_PASS: &str = "fonts/Square.ttf";
 pub const BACKGROUND_TEXTURE: &str = "textures/floor.png";
 pub const PLAYER_TEXTURE: &str = "textures/kani.png";
+pub const ROCK_TEXTURE: &str = "textures/rock2.png";
 
 
 // title settings
@@ -39,7 +40,10 @@ pub const PLAYER_SCALE: f32 = 4.0;
 pub const PLAYER_ANIMATION_TIMER: f32 = 0.05;
 pub const PLAYER_MOVE_SPEED: f32 = 5.0;
 
-
+// rock settings
+pub const ROCK_GRAVITY: f32 = 1.0;
+// settings for debug
+pub const DEBUG_ROCK_SIZE: f32 = 64.0;
 
 // pub const BACKGROUND_TEXTURE: &str = "textures/floor.png";
 // pub const PLAYER_TEXTURE: &str = "textures/kani.png";
