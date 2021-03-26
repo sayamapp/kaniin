@@ -16,7 +16,7 @@ impl Plugin for RockSpawnerPlugin {
 pub struct RockSpawnTimer(Timer);
 impl Default for RockSpawnTimer {
     fn default() -> Self {
-        Self(Timer::new(Duration::from_millis(400), true))
+        Self(Timer::new(Duration::from_millis(SPAWN_DURATION), true))
     }
 }
 

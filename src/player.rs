@@ -4,7 +4,8 @@ use bevy::{app::startup_stage::POST_STARTUP, prelude::*};
 pub struct PlayerPlugin;
 impl Plugin for PlayerPlugin {
     fn build(&self, app: &mut AppBuilder) {
-        app.on_state_enter(APP_STATE_STAGE, AppState::Game, player_setup.system())
+        app
+            .on_state_enter(APP_STATE_STAGE, AppState::Game, player_setup.system())
             .on_state_update(APP_STATE_STAGE, AppState::Game, player_move.system())
             .on_state_update(APP_STATE_STAGE, AppState::Game, player_animation.system());
     }
@@ -18,6 +19,9 @@ pub enum Direction {
 pub struct Player {
     direction: Direction,
 }
+
+#[derive(Default)]
+pub struct PlayerPosition(pub f32);
 
 fn player_setup(
     commands: &mut Commands,
@@ -46,9 +50,17 @@ fn player_setup(
         .with(Player {
             direction: Direction::None,
         });
+
+    commands
+        .insert_resource(PlayerPosition(0.0));
+    
 }
 
-fn player_move(input: Res<Input<KeyCode>>, mut query: Query<(&mut Transform, &mut Player)>) {
+fn player_move(
+    input: Res<Input<KeyCode>>, 
+    mut query: Query<(&mut Transform, &mut Player)>,
+    mut pos: ResMut<PlayerPosition>,
+) {
     for (mut transform, mut player) in query.iter_mut() {
         if (input.pressed(KeyCode::Left) || input.pressed(KeyCode::A))
             && transform.translation.x > -WINDOW_WIDTH / 2.0 + (PLAYER_TEXTURE_SIZE * PLAYER_SCALE / 2.0)
@@ -65,6 +77,7 @@ fn player_move(input: Res<Input<KeyCode>>, mut query: Query<(&mut Transform, &mu
         } else {
             player.direction = Direction::None;
         }
+        pos.0 = transform.translation.x;
     }
 }
 

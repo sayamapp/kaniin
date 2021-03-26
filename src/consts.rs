@@ -8,6 +8,7 @@ pub const WINDOW_HEIGHT: f32 = 600.0;
 pub enum AppState {
     Title,
     Game,
+    GameOver,
 }
 pub const APP_STATE_STAGE: &str = "app_state_stage";
 
@@ -17,6 +18,7 @@ pub const BACKGROUND_TEXTURE: &str = "textures/floor.png";
 pub const PLAYER_TEXTURE: &str = "textures/kani.png";
 pub const ROCK_TEXTURE: &str = "textures/rock2.png";
 pub const UFO_TEXTURE: &str = "textures/ufo.png";
+pub const TURBO_FISH_TEXTURE: &str = "textures/turbofish.png";
 
 
 // title settings
@@ -44,6 +46,7 @@ pub const PLAYER_MOVE_SPEED: f32 = 5.0;
 // rock settings
 pub const ROCK_GRAVITY: f32 = 0.1;
 pub const ROCK_SPAWN_POSITION_Y: f32 = 200.0;
+pub const ROCK_MAX_SPEED_Y: f32 = 9.0;
 // settings for debug
 pub const DEBUG_ROCK_SIZE: f32 = 64.0;
 
@@ -52,6 +55,11 @@ pub const DEBUG_ROCK_SIZE: f32 = 64.0;
 pub const UFO_SPEED: f32 = 2.0;
 pub const UFO_POSITION_Y: f32 = 250.0;
 pub const UFO_WIDTH: f32 = 128.0;
+
+// spawner settings
+pub const SPAWN_DURATION: u64 = 1000;
+// bullet settings
+pub const BULLET_SPEED: f32 = 10.0;
 
 // pub const BACKGROUND_TEXTURE: &str = "textures/floor.png";
 // pub const PLAYER_TEXTURE: &str = "textures/kani.png";
