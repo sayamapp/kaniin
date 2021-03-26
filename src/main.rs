@@ -23,6 +23,12 @@ use bevy::{input::system::exit_on_esc_system, prelude::*};
 use crate::consts::*;
 use crate::title::TitlePlugin;
 
+// 後で移動
+mod background;
+mod player;
+use crate::background::BackgroundPlugin;
+use crate::player::PlayerPlugin;
+
 fn main() {
     App::build()
         .add_resource(WindowDescriptor {
@@ -45,6 +51,8 @@ fn main() {
 
         // add my plugins
         .add_plugin(TitlePlugin)
+        .add_plugin(BackgroundPlugin)
+        .add_plugin(PlayerPlugin)
 
         .run();
 }
