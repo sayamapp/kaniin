@@ -1,3 +1,5 @@
+use std::ops::Neg;
+
 use bevy::prelude::*;
 use crate::consts::*;
 
@@ -51,10 +53,10 @@ fn rock_move(
         transform.translation.x += rock.velocity_x;
 
         if transform.translation.x >= WINDOW_WIDTH / 2.0 - DEBUG_ROCK_SIZE / 2.0 && rock.velocity_x.is_sign_positive() {
-            rock.velocity_x *= -1.0;
+            rock.velocity_x = rock.velocity_x.neg();
         }
         if transform.translation.x <= -WINDOW_WIDTH / 2.0 + DEBUG_ROCK_SIZE / 2.0 && rock.velocity_x.is_sign_negative() {
-            rock.velocity_x *= -1.0;
+            rock.velocity_x = rock.velocity_x.neg();
         }
 
         // rock move y
@@ -62,7 +64,7 @@ fn rock_move(
         rock.velocity_y -= ROCK_GRAVITY;
 
         if transform.translation.y <= BACKGROUND_POSITION_Y + DEBUG_ROCK_SIZE && rock.velocity_y.is_sign_negative() {
-            rock.velocity_y *= -1.0;
+            rock.velocity_y = rock.velocity_y.neg();
         }
     }
 }

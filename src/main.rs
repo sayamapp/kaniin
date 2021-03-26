@@ -27,9 +27,11 @@ use crate::title::TitlePlugin;
 mod background;
 mod player;
 mod rock;
+mod ufo;
 use crate::background::BackgroundPlugin;
 use crate::player::PlayerPlugin;
 use crate::rock::RockPlugin;
+use crate::ufo::UfoPlugin;
 
 fn main() {
     App::build()
@@ -54,8 +56,10 @@ fn main() {
         // add my plugins
         .add_plugin(TitlePlugin)
         .add_plugin(BackgroundPlugin)
+
         .add_plugin(PlayerPlugin)
         .add_plugin(RockPlugin)
+        .add_plugin(UfoPlugin)
 
         .run();
 }

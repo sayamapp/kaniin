@@ -16,6 +16,7 @@ pub const FONT_PASS: &str = "fonts/Square.ttf";
 pub const BACKGROUND_TEXTURE: &str = "textures/floor.png";
 pub const PLAYER_TEXTURE: &str = "textures/kani.png";
 pub const ROCK_TEXTURE: &str = "textures/rock2.png";
+pub const UFO_TEXTURE: &str = "textures/ufo.png";
 
 
 // title settings
@@ -44,6 +45,12 @@ pub const PLAYER_MOVE_SPEED: f32 = 5.0;
 pub const ROCK_GRAVITY: f32 = 1.0;
 // settings for debug
 pub const DEBUG_ROCK_SIZE: f32 = 64.0;
+
+
+// ufo settings
+pub const UFO_SPEED: f32 = 2.0;
+pub const UFO_POSITION_Y: f32 = 250.0;
+pub const UFO_WIDTH: f32 = 128.0;
 
 // pub const BACKGROUND_TEXTURE: &str = "textures/floor.png";
 // pub const PLAYER_TEXTURE: &str = "textures/kani.png";
