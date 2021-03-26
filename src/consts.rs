@@ -18,11 +18,11 @@ pub const FONT_PASS: &str = "fonts/Square.ttf";
 // title settings
 pub const TITLE_COLOR: Color = Color::YELLOW; 
 pub const TITLE_MAIN_CONTENTS: &str = "KANIROCK";
-pub const TITLE_MAIN_POS_Y: f32 = 400.0;
-pub const TITLE_MAIN_SIZE: f32 = 50.0;
+pub const TITLE_MAIN_POS_Y: f32 = 100.0;
+pub const TITLE_MAIN_SIZE: f32 = 100.0;
 pub const TITLE_SUB_CONTENTS: &str = "Press Space key";
-pub const TITLE_SUB_POS_Y: f32 = -200.0;
-pub const TITLE_SUB_SIZE: f32 = 5.0;
+pub const TITLE_SUB_POS_Y: f32 = 300.0;
+pub const TITLE_SUB_SIZE: f32 = 50.0;
 
 // pub const BACKGROUND_TEXTURE: &str = "textures/floor.png";
 // pub const PLAYER_TEXTURE: &str = "textures/kani.png";

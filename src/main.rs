@@ -21,6 +21,7 @@ mod title;
 
 use bevy::{input::system::exit_on_esc_system, prelude::*};
 use crate::consts::*;
+use crate::title::TitlePlugin;
 
 fn main() {
     App::build()
