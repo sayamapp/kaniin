@@ -6,6 +6,7 @@ use crate::rock::Rock;
 use crate::ufo::UFO;
 use crate::player::Player;
 use crate::player::PlayerPosition;
+use crate::score::Score;
 
 pub struct CollisionPlugin;
 impl Plugin for CollisionPlugin {
@@ -18,6 +19,7 @@ impl Plugin for CollisionPlugin {
 
 fn bullet_collision(
     commands: &mut Commands,
+    mut score: ResMut<Score>,
     mut query_bullet: Query<(&mut Transform, &mut Bullet)>,
     mut query_rock: Query<(Entity, &Transform), With<Rock>>,
 ) {
@@ -34,6 +36,7 @@ fn bullet_collision(
                 bullet.0 = false;
                 bullet_transform.translation = Vec3::new(0.0, -900.0, 0.0);
                 commands.despawn(rock_entity);
+                score.0 += 100;
             }
         }
     }
