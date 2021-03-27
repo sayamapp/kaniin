@@ -16,7 +16,11 @@
 			"problemMatcher": [
 				"$rustc"
 			],
-			"label": "rust: cargo run"
+			"label": "rust: cargo run",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
 		},
 		{
 			"type": "cargo",
@@ -25,6 +29,14 @@
 				"$rustc"
 			],
 			"label": "rust: cargo run --features bevy/dynamic"
+		},
+		{
+			"type": "cargo",
+			"command": "run",
+			"problemMatcher": [
+				"$rustc"
+			],
+			"label": "rust: cargo run"
 		}
 	]
 }

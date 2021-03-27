@@ -27,14 +27,19 @@ fn rock_move(
 ) {
     for (mut transform, mut rock) in query.iter_mut() {
 
+        let rock_size = match rock.size {
+            RockSize::Large => {128.0}
+            RockSize::Midium => {64.0}
+            RockSize::Small => {32.0}
+        };
 
         // rock move x
         transform.translation.x += rock.velocity_x;
 
-        if transform.translation.x >= WINDOW_WIDTH / 2.0 - DEBUG_ROCK_SIZE / 2.0 && rock.velocity_x.is_sign_positive() {
+        if transform.translation.x >= WINDOW_WIDTH / 2.0 - rock_size / 2.0 && rock.velocity_x.is_sign_positive() {
             rock.velocity_x = rock.velocity_x.neg();
         }
-        if transform.translation.x <= -WINDOW_WIDTH / 2.0 + DEBUG_ROCK_SIZE / 2.0 && rock.velocity_x.is_sign_negative() {
+        if transform.translation.x <= -WINDOW_WIDTH / 2.0 + rock_size / 2.0 && rock.velocity_x.is_sign_negative() {
             rock.velocity_x = rock.velocity_x.neg();
         }
 
@@ -42,7 +47,7 @@ fn rock_move(
         transform.translation.y += rock.velocity_y;
         rock.velocity_y -= ROCK_GRAVITY;
 
-        if transform.translation.y <= BACKGROUND_POSITION_Y + DEBUG_ROCK_SIZE && rock.velocity_y.is_sign_negative() {
+        if transform.translation.y <= BACKGROUND_POSITION_Y + 35.0 + rock_size / 2.0 && rock.velocity_y.is_sign_negative() {
             rock.velocity_y = ROCK_MAX_SPEED_Y;
         }
     }

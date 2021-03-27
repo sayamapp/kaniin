@@ -64,9 +64,19 @@ fn main() {
 
 fn setup(
     commands: &mut Commands,
+    asset_server: Res<AssetServer>,
+    mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
     commands
         .spawn(Camera2dBundle::default())
         .spawn(CameraUiBundle::default());
+
+    let rock_texture_handle = asset_server.load(ROCK_TEXTURE);
+    let bullet_texture_handle = asset_server.load(TURBO_FISH_TEXTURE);
+    commands
+        .insert_resource(Materials {
+            rock_material: materials.add(rock_texture_handle.into()),
+            bullet_material: materials.add(bullet_texture_handle.into()),
+        });
 }
 
