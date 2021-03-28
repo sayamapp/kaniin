@@ -1,6 +1,7 @@
 mod consts;
 mod title;
 mod score;
+mod fps;
 
 use bevy::{input::system::exit_on_esc_system, prelude::*};
 use score::ScorePlugin;
@@ -24,6 +25,7 @@ use crate::rock_spawner::RockSpawnerPlugin;
 use crate::bullet::BulletPlugin;
 use crate::collision::CollisionPlugin;
 use crate::gameover::GameOverPlugin;
+use crate::fps::FPSPlugin;
 
 
 fn main() {
@@ -58,6 +60,7 @@ fn main() {
         .add_plugin(CollisionPlugin)
         .add_plugin(GameOverPlugin)
         .add_plugin(ScorePlugin)
+        .add_plugin(FPSPlugin)
 
         .run();
 }

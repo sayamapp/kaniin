@@ -1,4 +1,4 @@
-use bevy::{prelude::*, utils::tracing::Instrument};
+use bevy::prelude::*;
 use kanirock::text_builder;
 use crate::consts::*;
 
@@ -19,10 +19,10 @@ impl Plugin for ScorePlugin {
 }
 
 
+
 fn score_setup(
     commands: &mut Commands,
     asset_server: Res<AssetServer>,
-    mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
     let font_handle = asset_server.load(FONT_PASS);
 
@@ -42,6 +42,7 @@ fn score_setup(
             Color::YELLOW,
             30.0))
             .with(ScoreText);  
+
 }
 
 fn score_update(
