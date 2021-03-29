@@ -97,7 +97,7 @@ fn player_collision(
             Vec2::new(32.0, 20.0));
 
         if let Some(_) = collision {
-            state.set_next(AppState::GameOver);
+            state.set_next(AppState::GameOver).unwrap();
         }
     }
     

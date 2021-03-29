@@ -1,10 +1,12 @@
 use bevy::prelude::*;
 use crate::consts::*;
 
+struct Background;
 pub struct BackgroundPlugin;
 impl Plugin for BackgroundPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app
+            .on_state_enter(APP_STATE_STAGE, AppState::Title, despawn_background.system())
             .on_state_enter(APP_STATE_STAGE, AppState::Game, setup_background.system());
     }
 }
@@ -25,5 +27,15 @@ fn setup_background(
                 ..Default::default()
             },
             ..Default::default()
-        });
+        })
+        .with(Background);
+}
+
+fn despawn_background(
+    commands: &mut Commands,
+    mut entities: Query<Entity, With<Background>>,
+) {
+    for entity in entities.iter_mut() {
+        commands.despawn(entity);
+    }
 }

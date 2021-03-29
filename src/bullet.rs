@@ -1,12 +1,12 @@
 use bevy::prelude::*;
 use crate::consts::*;
 
-use crate::player::Player;
 use crate::player::PlayerPosition;
 pub struct BulletPlugin;
 impl Plugin for BulletPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app
+            .on_state_enter(APP_STATE_STAGE, AppState::Title, despawn_bullet.system())
             .on_state_enter(APP_STATE_STAGE, AppState::Game, setup_bullet.system())
             .on_state_update(APP_STATE_STAGE, AppState::Game, fire_burret.system());
     }
@@ -35,8 +35,7 @@ fn setup_bullet(
 fn fire_burret(
     input: Res<Input<KeyCode>>,
     mut query: Query<(&mut Transform, &mut Bullet)>,
-    mut pos: Res<PlayerPosition>,
-    player: Query<&Transform, With<Player>>,
+    pos: Res<PlayerPosition>,
 ) {
     for (mut transform, mut bullet) in query.iter_mut() {
         if input.pressed(KeyCode::Space) {
@@ -54,5 +53,14 @@ fn fire_burret(
             bullet.0 = false;
             transform.translation.y = -900.0;
         }
+    }
+}
+
+fn despawn_bullet(
+    commands: &mut Commands,
+    mut entities: Query<Entity, With<Bullet>>,
+) {
+    for entity in entities.iter_mut() {
+        commands.despawn(entity);
     }
 }
