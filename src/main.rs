@@ -1,85 +1,44 @@
-mod consts;
-mod title;
-mod score;
-mod fps;
-
-use bevy::{input::system::exit_on_esc_system, prelude::*};
-use score::ScorePlugin;
-use crate::consts::*;
-use crate::title::TitlePlugin;
-
-// 後で移動
-mod background;
-mod player;
-mod rock;
-mod ufo;
-mod rock_spawner;
-mod bullet;
-mod collision;
-mod gameover;
-use crate::background::BackgroundPlugin;
-use crate::player::PlayerPlugin;
-use crate::rock::RockPlugin;
-use crate::ufo::UfoPlugin;
-use crate::rock_spawner::RockSpawnerPlugin;
-use crate::bullet::BulletPlugin;
-use crate::collision::CollisionPlugin;
-use crate::gameover::GameOverPlugin;
-use crate::fps::FPSPlugin;
-
+use bevy::prelude::*;
 
 fn main() {
-    App::build()
-        .add_resource(WindowDescriptor {
-            width: WINDOW_WIDTH,
-            height: WINDOW_HEIGHT,
-            title: "kanirock".to_string(),
-            ..Default::default()
-        })
-        .add_resource(ClearColor(Color::rgb(0.0, 0.0, 0.0)))
-        .add_resource(State::new(AppState::Title))
-        .add_stage_after(
-            stage::UPDATE,
-            APP_STATE_STAGE,
-            StateStage::<AppState>::default(),
-        )
-
-        .add_plugins(DefaultPlugins)
-        .add_startup_system(setup.system()) // Cameras 
-        .add_system(exit_on_esc_system.system())  
-
-        // add my plugins
-        .add_plugin(TitlePlugin)
-        .add_plugin(BackgroundPlugin)
-
-        .add_plugin(PlayerPlugin)
-        .add_plugin(RockPlugin)
-        .add_plugin(UfoPlugin)
-        .add_plugin(RockSpawnerPlugin)
-        .add_plugin(BulletPlugin)
-        .add_plugin(CollisionPlugin)
-        .add_plugin(GameOverPlugin)
-        .add_plugin(ScorePlugin)
-        .add_plugin(FPSPlugin)
-
-        .run();
+    let mut app = App::build();
+    app.add_resource(Msaa { samples: 4 })
+        .add_plugins(DefaultPlugins);
+    #[cfg(target_arch = "wasm32")]
+    app.add_plugin(bevy_webgl2::WebGL2Plugin);
+    app.add_startup_system(setup.system()).run();
 }
 
+/// set up a simple 3D scene
 fn setup(
     commands: &mut Commands,
-    asset_server: Res<AssetServer>,
-    mut materials: ResMut<Assets<ColorMaterial>>,
+    mut meshes: ResMut<Assets<Mesh>>,
+    mut materials: ResMut<Assets<StandardMaterial>>,
 ) {
+    // add entities to the world
     commands
-        .spawn(Camera2dBundle::default())
-        .spawn(CameraUiBundle::default());
-
-    let rock_texture_handle = asset_server.load(ROCK_TEXTURE);
-    let bullet_texture_handle = asset_server.load(TURBO_FISH_TEXTURE);
-    commands
-        .insert_resource(Materials {
-            rock_material: materials.add(rock_texture_handle.into()),
-            bullet_material: materials.add(bullet_texture_handle.into()),
+        // plane
+        .spawn(PbrBundle {
+            mesh: meshes.add(Mesh::from(shape::Plane { size: 5.0 })),
+            material: materials.add(Color::rgb(0.3, 0.5, 0.3).into()),
+            ..Default::default()
+        })
+        // cube
+        .spawn(PbrBundle {
+            mesh: meshes.add(Mesh::from(shape::Cube { size: 1.0 })),
+            material: materials.add(Color::rgb(0.8, 0.7, 0.6).into()),
+            transform: Transform::from_translation(Vec3::new(0.0, 0.5, 0.0)),
+            ..Default::default()
+        })
+        // light
+        .spawn(LightBundle {
+            transform: Transform::from_translation(Vec3::new(4.0, 8.0, 4.0)),
+            ..Default::default()
+        })
+        // camera
+        .spawn(Camera3dBundle {
+            transform: Transform::from_translation(Vec3::new(-2.0, 2.5, 5.0))
+                .looking_at(Vec3::default(), Vec3::unit_y()),
+            ..Default::default()
         });
 }
-

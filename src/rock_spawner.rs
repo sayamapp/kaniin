@@ -2,7 +2,6 @@ use crate::{consts::*, score};
 use bevy::prelude::*;
 
 use crate::ufo::UFO;
-use std::time::Duration;
 
 use rand::Rng;
 
