@@ -1,3 +1,6 @@
+mod consts;
+mod title;
+
 use bevy::prelude::*;
 
 pub fn text_builder(font_handle: Handle<Font>, style: Style, text: &str, color: Color, size: f32) -> TextBundle {
