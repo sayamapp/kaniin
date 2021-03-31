@@ -1,14 +1,15 @@
 use bevy::prelude::*;
 use crate::consts::*;
-
 use crate::player::PlayerPosition;
-pub struct BulletPlugin;
-impl Plugin for BulletPlugin {
+
+use crate::Materials;
+pub struct ShotPlugin;
+impl Plugin for ShotPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app
-            .on_state_enter(APP_STATE_STAGE, AppState::Title, despawn_bullet.system())
-            .on_state_enter(APP_STATE_STAGE, AppState::Game, setup_bullet.system())
-            .on_state_update(APP_STATE_STAGE, AppState::Game, fire_burret.system());
+            .on_state_enter(APP_STATE_STAGE, AppState::Game, setup_bullet.system());
+            // .on_state_update(APP_STATE_STAGE, AppState::Game, fire_burret.system())
+            // .on_state_exit(APP_STATE_STAGE, AppState::GameOver, despawn_bullet.system());
     }
 }
 
@@ -21,7 +22,7 @@ fn setup_bullet(
     
     commands
         .spawn(SpriteBundle {
-            material: materials.bullet_material.clone(),
+            material: materials.shot_material.clone(), 
             transform: Transform {
                 translation: Vec3::new(0.0, -900.0, 0.0),
                 scale: Vec3::new(4.0, 4.0, 1.0),

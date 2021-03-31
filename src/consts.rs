@@ -11,10 +11,11 @@ pub enum AppState {
     GameOver,
 }
 
-pub struct Materials {
-    pub rock_material: Handle<ColorMaterial>,
-    pub bullet_material: Handle<ColorMaterial>,
-}
+
+// pub struct Materials {
+//     pub rock_material: Handle<ColorMaterial>,
+//     pub bullet_material: Handle<ColorMaterial>,
+// }
 
 pub const APP_STATE_STAGE: &str = "app_state_stage";
 

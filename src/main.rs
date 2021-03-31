@@ -3,6 +3,8 @@ mod title;
 mod fps;
 mod background;
 mod player;
+mod ufo;
+mod shot;
 use bevy::prelude::*;
 use crate::consts::*;
 
@@ -10,13 +12,18 @@ use crate::title::TitlePlugin;
 use crate::fps::FPSPlugin;
 use crate::background::BackgroundPlugin;
 use crate::player::PlayerPlugin;
+use crate::ufo::UfoPlugin;
+use crate::shot::ShotPlugin;
+
+#[derive(Clone)]
+pub struct UIFont(Handle<Font>);
+
+#[derive(Clone, Debug)]
 pub struct Materials {
     pub rock_material: Handle<ColorMaterial>,
     pub shot_material: Handle<ColorMaterial>,
     pub bg_material: Handle<ColorMaterial>,
 }
-#[derive(Clone)]
-pub struct UIFont(Handle<Font>);
 
 fn main() {
     let mut app = App::build();
@@ -40,7 +47,9 @@ fn main() {
         .add_plugin(TitlePlugin)
         .add_plugin(FPSPlugin)
         .add_plugin(BackgroundPlugin)
-        .add_plugin(PlayerPlugin)
+        // .add_plugin(PlayerPlugin)
+        // .add_plugin(UfoPlugin)
+        // .add_plugin(ShotPlugin)
         .run();
 }
 
