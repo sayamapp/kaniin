@@ -1,5 +1,5 @@
 use crate::consts::*;
-use bevy::{app::startup_stage::POST_STARTUP, prelude::*};
+use bevy::prelude::*;
 
 pub struct PlayerPlugin;
 impl Plugin for PlayerPlugin {
@@ -7,7 +7,8 @@ impl Plugin for PlayerPlugin {
         app
             .on_state_enter(APP_STATE_STAGE, AppState::Game, player_setup.system())
             .on_state_update(APP_STATE_STAGE, AppState::Game, player_move.system())
-            .on_state_update(APP_STATE_STAGE, AppState::Game, player_animation.system());
+            .on_state_update(APP_STATE_STAGE, AppState::Game, player_animation.system())
+            .on_state_exit(APP_STATE_STAGE, AppState::GameOver, player_despawn.system());
     }
 }
 
@@ -51,25 +52,25 @@ fn player_setup(
             direction: Direction::None,
         });
 
-    commands
-        .insert_resource(PlayerPosition(0.0));
-    
+    commands.insert_resource(PlayerPosition(0.0));
 }
 
 fn player_move(
-    input: Res<Input<KeyCode>>, 
+    input: Res<Input<KeyCode>>,
     mut query: Query<(&mut Transform, &mut Player)>,
     mut pos: ResMut<PlayerPosition>,
 ) {
     for (mut transform, mut player) in query.iter_mut() {
         if (input.pressed(KeyCode::Left) || input.pressed(KeyCode::A))
-            && transform.translation.x > -WINDOW_WIDTH / 2.0 + (PLAYER_TEXTURE_SIZE * PLAYER_SCALE / 2.0)
+            && transform.translation.x
+                > -WINDOW_WIDTH / 2.0 + (PLAYER_TEXTURE_SIZE * PLAYER_SCALE / 2.0)
         {
             // println!("{}", transform.translation.x);
             transform.translation.x -= PLAYER_MOVE_SPEED;
             player.direction = Direction::Left;
         } else if (input.pressed(KeyCode::Right) || input.pressed(KeyCode::D))
-            && transform.translation.x < WINDOW_WIDTH / 2.0 - (PLAYER_TEXTURE_SIZE * PLAYER_SCALE / 2.0)
+            && transform.translation.x
+                < WINDOW_WIDTH / 2.0 - (PLAYER_TEXTURE_SIZE * PLAYER_SCALE / 2.0)
         {
             // println!("{}", transform.translation.x);
             transform.translation.x += PLAYER_MOVE_SPEED;
@@ -88,16 +89,23 @@ fn player_animation(
     for (mut timer, mut sprite, player) in query.iter_mut() {
         timer.tick(time.delta_seconds());
         if timer.finished() {
-           
-            sprite.index = 
-                match (&player.direction, sprite.index) {
-                    (Direction::None, 0..=14) => {sprite.index + 1},
-                    (Direction::None, _) => { 0 },
-                    (Direction::Left, 16..=18) => {sprite.index + 1},
-                    (Direction::Left, _) => { 16 }
-                    (Direction::Right, 19..=22) => {sprite.index + 1},
-                    (Direction::Right, _) => { 20 },
-                };
+            sprite.index = match (&player.direction, sprite.index) {
+                (Direction::None, 0..=14) => sprite.index + 1,
+                (Direction::None, _) => 0,
+                (Direction::Left, 16..=18) => sprite.index + 1,
+                (Direction::Left, _) => 16,
+                (Direction::Right, 19..=22) => sprite.index + 1,
+                (Direction::Right, _) => 20,
+            };
         }
+    }
+}
+
+fn player_despawn(
+    commands: &mut Commands,
+    mut query: Query<Entity, With<Player>>,
+) {
+    for entity in query.iter_mut() {
+        commands.despawn(entity);
     }
 }

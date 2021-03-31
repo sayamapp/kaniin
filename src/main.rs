@@ -1,9 +1,15 @@
 mod consts;
 mod title;
+mod fps;
+mod background;
+mod player;
 use bevy::prelude::*;
-use title::TitlePlugin;
 use crate::consts::*;
 
+use crate::title::TitlePlugin;
+use crate::fps::FPSPlugin;
+use crate::background::BackgroundPlugin;
+use crate::player::PlayerPlugin;
 pub struct Materials {
     pub rock_material: Handle<ColorMaterial>,
     pub shot_material: Handle<ColorMaterial>,
@@ -32,6 +38,9 @@ fn main() {
 
     app.add_startup_system(setup.system())
         .add_plugin(TitlePlugin)
+        .add_plugin(FPSPlugin)
+        .add_plugin(BackgroundPlugin)
+        .add_plugin(PlayerPlugin)
         .run();
 }
 

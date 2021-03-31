@@ -6,8 +6,8 @@ pub struct BackgroundPlugin;
 impl Plugin for BackgroundPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app
-            .on_state_enter(APP_STATE_STAGE, AppState::Title, despawn_background.system())
-            .on_state_enter(APP_STATE_STAGE, AppState::Game, setup_background.system());
+            .on_state_enter(APP_STATE_STAGE, AppState::Game, setup_background.system())
+            .on_state_exit(APP_STATE_STAGE, AppState::GameOver, despawn_background.system());
     }
 }
 

@@ -21,7 +21,7 @@ fn fps_setup(commands: &mut Commands, asset_server: Res<AssetServer>) {
             style: Style {
                 position_type: PositionType::Absolute,
                 position: Rect {
-                    right: Val::Percent(0.0),
+                    left: Val::Percent(0.0),
                     bottom: Val::Percent(0.0),
                     ..Default::default()
                 },
