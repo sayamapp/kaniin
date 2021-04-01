@@ -7,9 +7,9 @@ pub struct ShotPlugin;
 impl Plugin for ShotPlugin {
     fn build(&self, app: &mut AppBuilder) {
         app
-            .on_state_enter(APP_STATE_STAGE, AppState::Game, setup_bullet.system());
-            // .on_state_update(APP_STATE_STAGE, AppState::Game, fire_burret.system())
-            // .on_state_exit(APP_STATE_STAGE, AppState::GameOver, despawn_bullet.system());
+            .on_state_enter(APP_STATE_STAGE, AppState::Game, setup_bullet.system())
+            .on_state_update(APP_STATE_STAGE, AppState::Game, fire_burret.system())
+            .on_state_exit(APP_STATE_STAGE, AppState::GameOver, despawn_bullet.system());
     }
 }
 

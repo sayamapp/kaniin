@@ -47,15 +47,16 @@ fn main() {
         .add_plugin(TitlePlugin)
         .add_plugin(FPSPlugin)
         .add_plugin(BackgroundPlugin)
-        // .add_plugin(PlayerPlugin)
-        // .add_plugin(UfoPlugin)
-        // .add_plugin(ShotPlugin)
+        .add_plugin(PlayerPlugin)
+        .add_plugin(UfoPlugin)
+        .add_plugin(ShotPlugin)
         .run();
 }
 
 fn setup(
     commands: &mut Commands,
     asset_server: Res<AssetServer>,
+    mut materials: ResMut<Assets<ColorMaterial>>,
 ) {
     commands
         .spawn(Camera2dBundle::default())
@@ -66,10 +67,15 @@ fn setup(
     let bg_texture_handle = asset_server.load(BACKGROUND_TEXTURE);
     let font_handle = asset_server.load(FONT_PASS);
 
+    // commands.insert_resource(Materials {
+    //     rock_material: rock_texture_handle.into(),
+    //     shot_material: shot_texture_handle.into(),
+    //     bg_material: bg_texture_handle.into(),
+    // });
     commands.insert_resource(Materials {
-        rock_material: rock_texture_handle.into(),
-        shot_material: shot_texture_handle.into(),
-        bg_material: bg_texture_handle.into(),
+        rock_material: materials.add(rock_texture_handle.into()),
+        shot_material: materials.add(shot_texture_handle.into()),
+        bg_material: materials.add(bg_texture_handle.into()),
     });
 
     commands.insert_resource(UIFont(font_handle.into()));
